@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scan to Hear Your Message</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 40px 20px;
+    background: #fdf6e3;
+    color: #333;
+}
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+h2 {
+    font-size: 20px;
+    margin: 5px 0 20px 0;
+    font-weight: normal;
+}
+.soundwave {
+    width: 80%;
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+}
+.audio-player {
+    margin-top: 20px;
+    background: #fff3e0;
+    border-radius: 8px;
+    padding: 10px;
+    display: inline-block;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+</style>
+</head>
+<body>
+
+<!-- Soundwave Image -->
+<img id="waveform" class="soundwave" src="" alt="Soundwave">
+
+<h1>Your Special Message</h1>
+<h2 id="messageText"></h2>
+
+<div class="audio-player">
+    <audio id="player" controls autoplay>
+        <source id="audioSource" src="" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const file = params.get("file");  // e.g., audio/jack_2026.mp3
+const message = params.get("msg"); // optional custom message
+const waveform = params.get("wave"); // optional custom waveform image
+
+if(file){
+    document.getElementById("audioSource").src = file;
+    document.getElementById("player").load();
+}
+
+if(message){
+    document.getElementById("messageText").textContent = decodeURIComponent(message);
+}
+
+if(waveform){
+    document.getElementById("waveform").src = waveform;
+} else {
+    // default placeholder waveform
+    document.getElementById("waveform").src = "https://i.imgur.com/NvXJcSx.png";
+}
+</script>
+
+</body>
+</html>
